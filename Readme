@@ -3,4 +3,9 @@ Authors : Leffen ( aka Leif Terje Fonnes) && Stein Hjertås
 
 A ruby solution for this task : http://acm.uva.es/p/v101/10189.html
 
+Run :
+ruby test/load_test.rb 
 
+to test the solution.
+
+Expects ruby 1.9.2 or later

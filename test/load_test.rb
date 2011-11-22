@@ -7,25 +7,25 @@ require_relative '../lib/loader'
 class MineHintTest < Test::Unit::TestCase
 
   def setup
-    @loader = Loader.new
+    @loader = MinesweeperLoader.new
   end
 
   def teardown
   end
   
   def test_loadfile_num_fields
-    data = @loader.loadfile "./data/input1.txt"
-    assert_equal(data.keys.count, 3)
+    games = @loader.loadfile "./data/input1.txt"
+    assert_equal(games.count, 3)
   end
   
   def test_has_bomb
-    data = @loader.loadfile "./data/input1.txt"
-    data.each{|key,skjema|
-      puts "Skjema #{skjema.nr}"
-      skjema.analyze
-      skjema.cells.each_with_index{|row,r|
-        row.each_with_index{|cell,k|
-          puts "r=#{r} k=#{k} cell=#{cell} has_bomb=#{skjema.have_bomb(r,k)}"
+    games = @loader.loadfile "./data/input1.txt"
+    games.each{|game|
+      puts "Game #{game.nr}"
+      game.analyze
+      (0...game.expected_rows).each{|r|
+        (0...game.expected_colums).each{|k|
+          puts "r=#{r} k=#{k} has_bomb=#{game.cell_is_bomb(r,k)}"
         }
       }
     }
@@ -33,18 +33,11 @@ class MineHintTest < Test::Unit::TestCase
   end
   
   def test_analyze
-    data = @loader.loadfile "./data/input1.txt"
-    data.each{|key,skjema|
-      skjema.analyze
-      puts "Skjema nr#{skjema.nr}"
-      pp skjema.hints
+    games = @loader.loadfile "./data/input1.txt"
+    games.each{|game|
+      game.analyze
+      game.nice_print  
     }
-    
   end
-  
-
-  
-  
-
 
 end
